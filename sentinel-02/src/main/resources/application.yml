@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: sentinel02
+  cloud:
+    sentinel:
+      eager: true
+      transport:
+        port: 8819
+        dashboard: localhost:8080
+server:
+  port: 8082
