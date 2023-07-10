@@ -1,6 +1,7 @@
 package com.example.hystrixdemo.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheRemove;
 import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,14 @@ public class UserImpl implements UserService{
     @Override
     public String getUserCache(Long id) {
         LOGGER.info("getUserCache id:{}",id);
+        return "";
+    }
+
+    @Override
+    @HystrixCommand
+    @CacheRemove(commandKey = "getUserCache",cacheKeyMethod = "getCacheKey")
+    public String removeCache(Long id) {
+        LOGGER.info("removeCache id:{}",id);
         return "";
     }
 

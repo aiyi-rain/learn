@@ -21,6 +21,7 @@ public class CacheController {
     public String cache(@PathVariable("id")Long id){
         userService.getUserCache(id);
         userService.getUserCache(id);
+        userService.removeCache(id);
         userService.getUserCache(id);
         return "操作成功";
     }

@@ -9,4 +9,5 @@ package com.example.hystrixdemo.service;
 public interface UserService {
     String getUserCache(Long id);
     String getCacheKey(Long id);
+    String removeCache(Long id);
 }
