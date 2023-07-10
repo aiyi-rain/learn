@@ -12,3 +12,11 @@ management:
     hystrix:
       stream:
         enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:8080/eureka
