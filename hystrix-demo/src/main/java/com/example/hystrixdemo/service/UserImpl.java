@@ -1,11 +1,17 @@
 package com.example.hystrixdemo.service;
 
+import com.example.hystrixdemo.entity.User;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheRemove;
 import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author:王艺
@@ -35,5 +41,31 @@ public class UserImpl implements UserService{
     @Override
     public String getCacheKey(Long id) {
         return String.valueOf(id);
+    }
+
+    @Override
+    @HystrixCollapser(batchMethod = "getUsersByIds",scope = com.netflix.hystrix.HystrixCollapser.Scope.GLOBAL)
+    @HystrixProperty(name = "timerDelayInMilliseconds",value = "1000")
+    public User getUserById(Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setName("-");
+        LOGGER.info("getUserById id:{}",id);
+        return user;
+    }
+
+    @Override
+    @HystrixCommand
+    public List<User> getUsersByIds(List<Long> ids) {
+        LOGGER.info("getUsersByIds ids:{}",ids);
+        ArrayList<User> users = new ArrayList<>();
+        for (Long id:ids
+             ) {
+            User user = new User();
+            user.setId(id);
+            user.setName("--");
+            users.add(user);
+        }
+        return users;
     }
 }
