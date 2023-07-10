@@ -1,0 +1,18 @@
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*"
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    jmx:
+      exposure:
+        include: '*'
+    web:
+      cors:
+        allowed-origins: '*'
+      exposure:
+        include: '*'
+      base-path: /actuator
