@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: msg-producer
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 192.168.10.35
+
+server:
+  port: 18080
