@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: msg-consumer
+server:
+  port: 18081
