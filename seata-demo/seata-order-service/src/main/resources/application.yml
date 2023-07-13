@@ -1,0 +1,23 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: order-service
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: fsp_tx_group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata-order
+    username: root
+    password: wangyi123
+logging:
+  level:
+    io:
+      seata: info
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
