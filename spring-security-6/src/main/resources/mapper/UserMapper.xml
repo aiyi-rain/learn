@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.mybatis.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="wy.mybatis.domain.User">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="enable" column="enable" jdbcType="INTEGER"/>
+        <result property="roleid" column="roleId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,username,password,
+        enable,roleId
+    </sql>
+    <insert id="add">
+        insert into `user`(username, password,
+                           enable, roleId)
+        values (#{user.username}, #{user.password}, #{user.enable}, #{user.roleid})
+    </insert>
+    <select id="queryAuthority" resultType="string">
+        select `authority`
+        from `author`
+        where `id` in (select `author_id`
+                       from `role_has_author`
+                       where `role_id` = (select `roleid` from `user` where `username` = #{username}))
+
+    </select>
+    <select id="queryByUsername" resultType="wy.mybatis.domain.User">
+        select `username`,`password`,
+            `enable`,`roleId` from `user` where `username`=#{username}
+    </select>
+</mapper>
