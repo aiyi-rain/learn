@@ -22,8 +22,6 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig  {
-    @Resource
-    private SecurityDetailsServiceImpl service;
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
